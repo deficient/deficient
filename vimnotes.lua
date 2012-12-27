@@ -34,8 +34,7 @@ function createmenu(w)
         if lfs.attributes(fullpath, "mode") == "file" then
             f = split_path(fullpath)
             if not w.extension or f.ext == w.extension then
-                table.insert(items,
-                    {f.name, function() w:shownote(f.file) end})
+                table.insert(items, {f.name, w:note(f.file)})
             end
 
         end
@@ -44,17 +43,16 @@ function createmenu(w)
 end
 
 function togglemenu(w)
-    if w.menu then
+    if w.menu and w.menu.items[1] and w.menu.items[1].wibox.screen then
         w.menu:hide()
-        w.menu = nil
         return
     end
     w:createmenu()
     w.menu:show()
 end
 
-function shownote(w, name)
-    w.action(name)
+function shownote(w, file)
+    awful.util.spawn(w.command.." "..shell_quote("note:"..file))
 end
 
 function new(args)
@@ -82,24 +80,21 @@ function new(args)
         w.command = "gvim"
     end
     if args.action then
-        w.action = args.action
+        w.note = function(w, file) return function() args.action(file) end end
     else
-        w.action = function(file) 
-            awful.util.spawn(w.command.." "..shell_quote("note:"..file))
-        end
+        w.note = function(w, file) return function() shownote(w, file) end end
     end
 
     -- methods
     w.createmenu = createmenu
     w.togglemenu = togglemenu
-    w.shownote = shownote
 
     -- UI
     if args.tooltip then
         awful.tooltip({ objects = { w.widget } }):set_text(args.tooltip)
     end
     w.widget:buttons(awful.util.table.join(
-        awful.button({}, 1, nil, function() w:shownote("") end),
+        awful.button({}, 1, nil, w:note("")),
         awful.button({}, 3, function() w:togglemenu() end, nil)
     ))
     return w
