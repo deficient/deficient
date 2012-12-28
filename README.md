@@ -14,7 +14,12 @@ your `rc.lua`:
 
 Create a widget:
 
-    vnwidget = vimnotes({tooltip="vim notes", folder=os.getenv("HOME").."/notes", image=image("gnote.png")})
+    vnwidget = vimnotes({
+      tooltip = "vim notes",
+      folder  = os.getenv("HOME").."/notes",
+      image   = image("gnote.png"),
+      match   = '^(.*?)((?:\\.gpg)?)$'
+    })
 
 And add it to the wibox:
 
@@ -29,3 +34,4 @@ And add it to the wibox:
 
 * [lua-filesystem](http://keplerproject.github.com/luafilesystem/)
 * [vim-notes](http://peterodding.com/code/vim/notes/)
+* [lrexlib](http://rrthomas.github.com/lrexlib/)

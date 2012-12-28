@@ -2,6 +2,7 @@
 local setmetatable = setmetatable
 local awful = require("awful")
 local lfs = require("lfs")
+local rex = require("rex_pcre")
 local table = table
 
 -- utility functions {{{1
@@ -33,10 +34,10 @@ function createmenu(w)
         fullpath = w.folder .. "/" .. file
         if lfs.attributes(fullpath, "mode") == "file" then
             f = split_path(fullpath)
-            if not w.extension or f.ext == w.extension then
-                table.insert(items, {f.name, w:note(f.file)})
+            title = rex.match(f.file, w.match)
+            if title then
+                table.insert(items, {title, w:note(title)})
             end
-
         end
     end
     w.menu = awful.menu({ items=items })
@@ -69,10 +70,10 @@ function new(args)
     end
 
     -- members
-    if args.extension then
-        w.extension = args.extension
+    if args.match then
+        w.match = args.match
     else
-        w.extension = nil
+        w.match = "^(.*?)((?:\\.[^.]*)?)$"
     end
     if args.command then 
         w.command = args.command
