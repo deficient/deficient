@@ -56,6 +56,10 @@ function shownote(w, file)
     awful.util.spawn(w.command.." "..shell_quote("note:"..file))
 end
 
+function recentnotes(w)
+    awful.util.spawn(w.command.." -c RecentNotes")
+end
+
 function new(args)
     if not args.folder then
         return nil
@@ -89,6 +93,7 @@ function new(args)
     -- methods
     w.createmenu = createmenu
     w.togglemenu = togglemenu
+    w.recentnotes = recentnotes
 
     -- UI
     if args.tooltip then
@@ -96,6 +101,7 @@ function new(args)
     end
     w.widget:buttons(awful.util.table.join(
         awful.button({}, 1, nil, w:note("")),
+        awful.button({}, 2, nil, function() w:recentnotes() end),
         awful.button({}, 3, function() w:togglemenu() end, nil)
     ))
     return w
