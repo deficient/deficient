@@ -1,8 +1,6 @@
 -- grab environment {{{1
-local setmetatable = setmetatable
 local awful = require("awful")
 local lfs = require("lfs")
-local table = table
 
 -- utility functions {{{1
 local function shell_quote(str)
@@ -25,41 +23,45 @@ local function split_path(path)
 end
 
 -- module("vimnotes") {{{1
-module("vimnotes")
 
-function createmenu(w)
+local vimnotes = {
+    mt = {},
+    wmt = {}
+}
+vimnotes.wmt.__index = vimnotes
+
+function vimnotes:createmenu()
     local items = {}
-    for file in lfs.dir(w.folder) do
-        fullpath = w.folder .. "/" .. file
+    for file in lfs.dir(self.folder) do
+        fullpath = self.folder .. "/" .. file
         if lfs.attributes(fullpath, "mode") == "file" then
             f = split_path(fullpath)
-            if not w.extension or f.ext == w.extension then
-                table.insert(items, {f.name, w:note(f.file)})
+            if not self.extension or f.ext == self.extension then
+                table.insert(items, {f.name, self:note(f.name)})
             end
-
         end
     end
-    w.menu = awful.menu({ items=items })
+    self.menu = awful.menu({ items=items })
 end
 
-function togglemenu(w)
-    if w.menu and w.menu.items[1] and w.menu.items[1].wibox.screen then
-        w.menu:hide()
+function vimnotes:togglemenu()
+    if self.menu and self.menu.items[1] and self.menu.wibox.visible then
+        self.menu:hide()
         return
     end
-    w:createmenu()
-    w.menu:show()
+    self:createmenu()
+    self.menu:show()
 end
 
-function shownote(w, file)
-    awful.util.spawn(w.command.." "..shell_quote("note:"..file))
+function vimnotes:shownote(file)
+    awful.util.spawn(self.command.." "..shell_quote("note:"..file))
 end
 
-function recentnotes(w)
-    awful.util.spawn(w.command.." -c RecentNotes")
+function vimnotes:recentnotes()
+    awful.util.spawn(self.command.." -c RecentNotes")
 end
 
-function new(args)
+function vimnotes.new(args)
     if not args.folder then
         return nil
     end
@@ -71,6 +73,7 @@ function new(args)
     if not w.widget then
         return nil
     end
+    setmetatable(w, vimnotes.wmt)
 
     -- members
     if args.extension then
@@ -86,13 +89,8 @@ function new(args)
     if args.action then
         w.note = function(w, file) return function() args.action(file) end end
     else
-        w.note = function(w, file) return function() shownote(w, file) end end
+        w.note = function(w, file) return function() w:shownote(file) end end
     end
-
-    -- methods
-    w.createmenu = createmenu
-    w.togglemenu = togglemenu
-    w.recentnotes = recentnotes
 
     -- UI
     if args.tooltip then
@@ -106,4 +104,8 @@ function new(args)
     return w
 end
 
-setmetatable(_M, { __call = function (_, ...) return new(...) end })
+function vimnotes.mt:__call(...)
+    return vimnotes.new(...)
+end
+
+return setmetatable(vimnotes, vimnotes.mt)
