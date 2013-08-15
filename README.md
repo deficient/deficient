@@ -8,21 +8,24 @@ vim-notes widget for awesome WM.
 ### Usage
 
 Drop the file into your `~/config/awesome` folder and load the plugin in
-your `rc.lua`:
+your `~/.config/awesome/rc.lua`:
 
-    vimnotes = require('vimnotes')
+```lua
+vimnotes = require('vimnotes')
 
-Create a widget:
+-- Create a widget:
+vnwidget = vimnotes({
+  tooltip="vim notes",
+  folder=os.getenv("HOME").."/notes",
+  image=image("gnote.png")})
 
-    vnwidget = vimnotes({tooltip="vim notes", folder=os.getenv("HOME").."/notes", image=image("gnote.png")})
-
-And add it to the wibox:
-
-    mywibox[s].widgets = {
-      ...
-            vnwidget.widget,
-      ...
-    }
+-- And add it to the wibox:
+mywibox[s].widgets = {
+  ...
+        vnwidget.widget,
+  ...
+}
+```
 
 
 ### Requirements
