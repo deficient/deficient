@@ -1,6 +1,7 @@
 -- grab environment {{{1
 local awful = require("awful")
 local lfs = require("lfs")
+local natsort = require("natsort")
 
 -- utility functions {{{1
 local function shell_quote(str)
@@ -22,6 +23,7 @@ local function split_path(path)
     return split
 end
 
+
 -- module("vimnotes") {{{1
 
 local vimnotes = {
@@ -30,9 +32,21 @@ local vimnotes = {
 }
 vimnotes.wmt.__index = vimnotes
 
+
+local function iterator_to_table(...)
+  result = {}
+  for item in ... do
+    table.insert(result, item)
+  end
+  return result
+end
+
+
 function vimnotes:createmenu()
     local items = {}
-    for file in lfs.dir(self.folder) do
+    local files = iterator_to_table(lfs.dir(self.folder))
+    natsort(files)
+    for _, file in ipairs(files) do
         fullpath = self.folder .. "/" .. file
         if lfs.attributes(fullpath, "mode") == "file" then
             f = split_path(fullpath)
