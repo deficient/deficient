@@ -1,7 +1,6 @@
 -- grab environment {{{1
 local awful = require("awful")
 local lfs = require("lfs")
-local natsort = require("natsort")
 
 -- utility functions {{{1
 local function shell_quote(str)
@@ -21,6 +20,13 @@ local function split_path(path)
         split.name, split.ext = split.file, ""
     end
     return split
+end
+
+local function natsort(tab, key)
+  -- This isn't actually natsort but a very simple replacement that does
+  -- the job for my current purposes and is MUCH simpler in lua.
+  table.sort(tab, function(a, b) return a:lower() < b:lower() end)
+  return tab
 end
 
 
