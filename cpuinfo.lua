@@ -3,6 +3,16 @@ local wibox = require("wibox")
 local vicious = require("vicious")
 
 
+local function readall(file)
+    local text = file:read('*all')
+    file:close()
+    return text
+end
+
+local function readcommand(command)
+    return readall(io.popen(command))
+end
+
 local CPUCoreWidget = {
     new = function(self, core)
         local w = {
@@ -36,7 +46,9 @@ setmetatable(CPUCoreWidget, {
 
 
 local function CPUWidget()
-    num_cores = 4
+
+    local cpuinfo = readcommand("lscpu")
+    local num_cores = tonumber(string.match(cpuinfo, "CPU%(s%):([^\n]*)"))
 
     local cpuwidget = {
         item = {},
