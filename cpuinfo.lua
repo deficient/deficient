@@ -17,13 +17,21 @@ local CPUCoreWidget = {
     new = function(self, core)
         local w = {
             core = core,
-            widget = awful.widget.progressbar({ width = 12 })
+            widget = wibox.layout {
+              {
+                id = "bar",
+                widget = wibox.widget.progressbar,
+              },
+              forced_width  = 12,
+              direction     = 'east',
+              layout        = wibox.container.rotate,
+            }
         }
 
-        w.widget:set_vertical(true)
-        w.widget:set_background_color('#494B4F')
-        w.widget:set_color('#AECF96')
-        w.widget:set_ticks(true)
+        w.bar = w.widget.bar
+        w.bar.ticks = true
+        w.bar.color = '#AECF96'
+        w.bar.background_color = '#494B4F'
 
         w.tooltip = awful.tooltip({objects={w.widget}})
         return setmetatable(w, { __index = self })
@@ -31,10 +39,10 @@ local CPUCoreWidget = {
 
     set_usage = function(self, usage)
         if usage[1+self.core] ~= nil then
-            self.widget:set_value(tonumber(usage[1+self.core])/100)
+            self.bar:set_value(tonumber(usage[1+self.core])/100)
             self.tooltip:set_text(" "..usage[1+self.core].."% CPU load ")
         else
-            self.widget:set_value(0)
+            self.bar:set_value(0)
             self.tooltip:set_text("core disabled")
         end
     end
