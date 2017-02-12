@@ -74,7 +74,8 @@ function vimnotes:togglemenu()
 end
 
 function vimnotes:shownote(file)
-    awful.util.spawn(self.command.." "..shell_quote("note:"..file))
+    local fullpath = self.folder .. "/" .. file
+    awful.util.spawn(self.command.." "..shell_quote(fullpath))
 end
 
 function vimnotes:recentnotes()
@@ -101,7 +102,7 @@ function vimnotes.new(args)
     else
         w.extension = nil
     end
-    if args.command then 
+    if args.command then
         w.command = args.command
     else
         w.command = "gvim"

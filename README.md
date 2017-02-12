@@ -2,7 +2,10 @@
 
 ### Description
 
-vim-notes widget for awesome WM.
+A lightweight notes widget for awesome WM.
+
+The widget consists of an icon that shows a menu allowing to open any file in
+a specified directory.
 
 
 ### Usage
