@@ -43,48 +43,34 @@ end
 local vimnotes = {}
 
 function vimnotes:new(args)
-    if not args.folder then
-        return nil
-    end
+    return setmetatable({}, {__index = self}):init(args)
+end
 
-    -- prototype
-    local w = {
-        widget = awful.widget.button(args),
-        folder = args.folder }
-    if not w.widget then
-        return nil
-    end
-    setmetatable(w, {__index = self})
+function vimnotes:init(args)
+    self.folder    = args.folder
+    self.widget    = awful.widget.button(args)
+    self.extension = args.extension
+    self.command   = args.command or "gvim"
 
-    -- members
-    if args.extension then
-        w.extension = args.extension
-    else
-        w.extension = nil
-    end
-    if args.command then
-        w.command = args.command
-    else
-        w.command = "gvim"
-    end
-    if args.action then
-        w.note = function(w, file) return function() args.action(file) end end
-    else
-        w.note = function(w, file) return function() w:shownote(file) end end
+    if not self.folder or not self.widget then
+        return nil
     end
 
     -- UI
     if args.tooltip then
-        awful.tooltip({ objects = { w.widget } }):set_text(args.tooltip)
+        awful.tooltip({ objects = { self.widget } }):set_text(args.tooltip)
     end
-    w.widget:buttons(awful.util.table.join(
-        awful.button({}, 1, nil, w:note("")),
-        awful.button({}, 2, nil, function() w:recentnotes() end),
-        awful.button({}, 3, function() w:togglemenu() end, nil)
+    self.widget:buttons(awful.util.table.join(
+        awful.button({}, 1, nil, self:note("")),
+        awful.button({}, 2, nil, function() self:recentnotes() end),
+        awful.button({}, 3, function() self:togglemenu() end, nil)
     ))
-    return w
+    return self
 end
 
+function vimnotes:note(file)
+    return function() self:shownote(file) end
+end
 
 function vimnotes:createmenu()
     local items = {}
