@@ -62,7 +62,6 @@ function vimnotes:init(args)
     end
     self.widget:buttons(awful.util.table.join(
         awful.button({}, 1, nil, function() self:shownote("") end),
-        awful.button({}, 2, nil, function() self:recentnotes() end),
         awful.button({}, 3, function() self:togglemenu() end, nil)
     ))
     return self
@@ -98,10 +97,6 @@ end
 function vimnotes:shownote(file)
     local fullpath = self.folder .. "/" .. file
     awful.util.spawn(self.command.." "..shell_quote(fullpath))
-end
-
-function vimnotes:recentnotes()
-    awful.util.spawn(self.command.." -c RecentNotes")
 end
 
 return setmetatable(vimnotes, {
