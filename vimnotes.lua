@@ -29,12 +29,6 @@ local function natsort(tab, key)
   return tab
 end
 
-
--- module("vimnotes") {{{1
-
-local vimnotes = {}
-
-
 local function iterator_to_table(...)
   local result = {}
   for item in ... do
@@ -44,39 +38,9 @@ local function iterator_to_table(...)
 end
 
 
-function vimnotes:createmenu()
-    local items = {}
-    local files = iterator_to_table(lfs.dir(self.folder))
-    natsort(files)
-    for _, file in ipairs(files) do
-        fullpath = self.folder .. "/" .. file
-        if lfs.attributes(fullpath, "mode") == "file" then
-            f = split_path(fullpath)
-            if not self.extension or f.ext == self.extension then
-                table.insert(items, {f.name, self:note(f.name)})
-            end
-        end
-    end
-    self.menu = awful.menu({ items=items })
-end
+-- module("vimnotes") {{{1
 
-function vimnotes:togglemenu()
-    if self.menu and self.menu.items[1] and self.menu.wibox.visible then
-        self.menu:hide()
-        return
-    end
-    self:createmenu()
-    self.menu:show()
-end
-
-function vimnotes:shownote(file)
-    local fullpath = self.folder .. "/" .. file
-    awful.util.spawn(self.command.." "..shell_quote(fullpath))
-end
-
-function vimnotes:recentnotes()
-    awful.util.spawn(self.command.." -c RecentNotes")
-end
+local vimnotes = {}
 
 function vimnotes:new(args)
     if not args.folder then
@@ -119,6 +83,41 @@ function vimnotes:new(args)
         awful.button({}, 3, function() w:togglemenu() end, nil)
     ))
     return w
+end
+
+
+function vimnotes:createmenu()
+    local items = {}
+    local files = iterator_to_table(lfs.dir(self.folder))
+    natsort(files)
+    for _, file in ipairs(files) do
+        fullpath = self.folder .. "/" .. file
+        if lfs.attributes(fullpath, "mode") == "file" then
+            f = split_path(fullpath)
+            if not self.extension or f.ext == self.extension then
+                table.insert(items, {f.name, self:note(f.name)})
+            end
+        end
+    end
+    self.menu = awful.menu({ items=items })
+end
+
+function vimnotes:togglemenu()
+    if self.menu and self.menu.items[1] and self.menu.wibox.visible then
+        self.menu:hide()
+        return
+    end
+    self:createmenu()
+    self.menu:show()
+end
+
+function vimnotes:shownote(file)
+    local fullpath = self.folder .. "/" .. file
+    awful.util.spawn(self.command.." "..shell_quote(fullpath))
+end
+
+function vimnotes:recentnotes()
+    awful.util.spawn(self.command.." -c RecentNotes")
 end
 
 return setmetatable(vimnotes, {
