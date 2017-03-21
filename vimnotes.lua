@@ -36,7 +36,7 @@ local vimnotes = {}
 
 
 local function iterator_to_table(...)
-  result = {}
+  local result = {}
   for item in ... do
     table.insert(result, item)
   end
