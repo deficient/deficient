@@ -37,14 +37,6 @@ local function iterator_to_table(...)
   return result
 end
 
-local function bind(f, ...)
-    local x = {...}
-    local n = select('#', ...)
-    return function()
-        return f(unpack(x, 1, n))
-    end
-end
-
 
 -- module("vimnotes") {{{1
 
@@ -69,9 +61,9 @@ function vimnotes:init(args)
         awful.tooltip({ objects = { self.widget } }):set_text(args.tooltip)
     end
     self.widget:buttons(awful.util.table.join(
-        awful.button({}, 1, nil, bind(self.shownote, self, "")),
-        awful.button({}, 2, nil, bind(self.recentnotes, self)),
-        awful.button({}, 3, bind(self.togglemenu, self), nil)
+        awful.button({}, 1, nil, function() self:shownote("") end),
+        awful.button({}, 2, nil, function() self:recentnotes() end),
+        awful.button({}, 3, function() self:togglemenu() end, nil)
     ))
     return self
 end
@@ -85,7 +77,9 @@ function vimnotes:createmenu()
         if lfs.attributes(fullpath, "mode") == "file" then
             f = split_path(fullpath)
             if not self.extension or f.ext == self.extension then
-                table.insert(items, {f.name, bind(self.shownote, self, f.name)})
+                table.insert(items, {
+                  f.name, function() self:shownote(f.name) end
+                })
             end
         end
     end
