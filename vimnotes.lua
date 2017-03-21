@@ -32,11 +32,7 @@ end
 
 -- module("vimnotes") {{{1
 
-local vimnotes = {
-    mt = {},
-    wmt = {}
-}
-vimnotes.wmt.__index = vimnotes
+local vimnotes = {}
 
 
 local function iterator_to_table(...)
@@ -82,7 +78,7 @@ function vimnotes:recentnotes()
     awful.util.spawn(self.command.." -c RecentNotes")
 end
 
-function vimnotes.new(args)
+function vimnotes:new(args)
     if not args.folder then
         return nil
     end
@@ -94,7 +90,7 @@ function vimnotes.new(args)
     if not w.widget then
         return nil
     end
-    setmetatable(w, vimnotes.wmt)
+    setmetatable(w, {__index = self})
 
     -- members
     if args.extension then
@@ -125,8 +121,6 @@ function vimnotes.new(args)
     return w
 end
 
-function vimnotes.mt:__call(...)
-    return vimnotes.new(...)
-end
-
-return setmetatable(vimnotes, vimnotes.mt)
+return setmetatable(vimnotes, {
+  __call = vimnotes.new,
+})
