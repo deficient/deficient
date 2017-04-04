@@ -72,9 +72,9 @@ function vimnotes:createmenu()
     local files = iterator_to_table(lfs.dir(self.folder))
     natsort(files)
     for _, file in ipairs(files) do
-        fullpath = self.folder .. "/" .. file
+        local fullpath = self.folder .. "/" .. file
         if lfs.attributes(fullpath, "mode") == "file" then
-            f = split_path(fullpath)
+            local f = split_path(fullpath)
             if not self.extension or f.ext == self.extension then
                 table.insert(items, {
                   f.name, function() self:shownote(f.name) end
