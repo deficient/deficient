@@ -14,7 +14,7 @@ Drop the script into your awesome config folder. Suggestion:
 
 ```bash
 cd ~/.config/awesome
-git clone https://github.com/dokthar/leds-widget.git
+git clone https://github.com/deficient/leds-widget.git
 ```
 
 
