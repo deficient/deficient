@@ -3,6 +3,10 @@ local wibox = require("wibox")
 local vicious = require("vicious")
 
 
+------------------------------------------
+-- private utility functions
+------------------------------------------
+
 local function readall(file)
     local text = file:read('*all')
     file:close()
@@ -12,6 +16,12 @@ end
 local function readcommand(command)
     return readall(io.popen(command))
 end
+
+------------------------------------------
+-- cpuinfo module
+------------------------------------------
+
+local cpuinfo = {}
 
 local CPUCoreWidget = {
     new = function(self, core)
@@ -56,7 +66,7 @@ setmetatable(CPUCoreWidget, {
 local function CPUWidget()
 
     local cpuinfo = readcommand("lscpu")
-    local num_cores = tonumber(string.match(cpuinfo, "CPU%(s%):([^\n]*)"))
+    local num_cores = tonumber(cpuinfo:match("CPU%(s%):([^\n]*)"))
 
     local cpuwidget = {
         item = {},
@@ -67,8 +77,7 @@ local function CPUWidget()
       table.insert(cpuwidget.item, CPUCoreWidget(i))
     end
 
-    local spacer         = wibox.widget.textbox()
-    spacer:set_text(" ")
+    local spacer = wibox.widget.textbox(" ")
 
     cpuwidget.widget:add(cpuwidget.item[1].widget)
     for i = 2, num_cores do
@@ -76,12 +85,11 @@ local function CPUWidget()
       cpuwidget.widget:add(cpuwidget.item[i].widget)
     end
 
-    vicious.register(cpuwidget, vicious.widgets.cpu,
-        function (w, args)
-          for i = 1, num_cores do
+    vicious.register(cpuwidget, vicious.widgets.cpu, function (w, args)
+        for i = 1, num_cores do
             cpuwidget.item[i]:set_usage(args)
-          end
-        end)
+        end
+    end)
 
     return cpuwidget
 end
