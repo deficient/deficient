@@ -1,17 +1,6 @@
 ## awesome.keyboard-layout-indicator
 
-### Description
-
 Keyboard layout indicator+switcher widget for awesome window manager.
-
-### Installation
-
-Drop the script into your awesome config folder. Suggestion:
-
-```bash
-cd ~/.config/awesome
-git clone https://github.com/deficient/keyboard-layout-indicator.git
-```
 
 
 ### Usage
@@ -20,7 +9,7 @@ In your `rc.lua`:
 
 ```lua
 -- load the widget code
-local layout_indicator = require("keyboard-layout-indicator")
+local layout_indicator = require("deficient.keyboard-layout-indicator")
 
 -- define your layouts
 kbdcfg = layout_indicator({
@@ -55,8 +44,3 @@ NOTE: middle click on the widget executes a prompt which lets you set a custom
 keyboard layout. However, this will work only if you assign `s.mypromptbox` as
 in the awesome 4.0 default `rc.lua`. Otherwise, you have to rebind the
 behaviour manually, see the source code.
-
-
-### Requirements
-
-* [awesome 4.0](http://awesome.naquadah.org/)

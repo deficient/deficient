@@ -7,14 +7,7 @@ Battery indicator widget for awesome window manager.
 Displays status information from `/sys/class/power_supply`.
 
 
-### Installation
-
-Drop the script into your awesome config folder, e.g.:
-
-```bash
-cd ~/.config/awesome
-git clone https://github.com/deficient/battery-widget.git
-```
+### Dependencies
 
 Optionally, in order to receive status updates, you will also need `acpid`:
 
@@ -31,7 +24,7 @@ and then instanciate a widget with the desired options like this:
 
 ```lua
 -- Import module:
-local battery_widget = require("battery-widget")
+local battery_widget = require("deficient.battery-widget")
 
 -- Instanciate and add widget to the wibox:
 s.mywibox:setup {
@@ -163,8 +156,3 @@ battery_widget {
     widget_text = '<span font="Deja Vu Sans Bold 16">${AC_BAT}</span>${color_on}${percent}%${color_off}'
 }
 ```
-
-### Requirements
-
-* [awesome 4.0](http://awesome.naquadah.org/).
-* `acpid` (optional)

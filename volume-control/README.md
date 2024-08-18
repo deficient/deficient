@@ -4,22 +4,32 @@ Volume indicator+control widget for awesome window manager.
 
 ![Screenshot](/screenshot.png?raw=true "Screenshot")
 
-### Installation
 
-Simply drop the script into your awesome config folder, e.g.:
+### Dependencies
 
-```bash
-cd ~/.config/awesome
-git clone https://github.com/deficient/volume-control.git
-```
+Optional but recommended dependencies:
 
-I recommend to also install the following:
+* pavucontrol (optional)
+* acpid (optional)
 
 ```bash
 pacman -S pavucontrol       # open volume manager with middle/right click
 pacman -S acpid             # instant status updates (acpi_listen)
 systemctl enable acpid
 ```
+
+You will also need `amixer` and `alsactl`, most likely your distro has a
+package called `alsa-utils` that contains them.
+
+If you are using `pipewire`, you have to configure it to manage clients
+using the userspace component of ALSA. For example on Arch Linux, this can
+be done by installing the package `pipewire-alsa`. For Debian, you can
+follow the instructions provided in the
+[Debian Wiki](https://wiki.debian.org/PipeWire#For_ALSA).
+
+Similarly, if you are using `pulseaudio`, you need to configure it to manage
+clients using the userspace component of ALSA. For Arch Linux, that means
+installing the package `pulseaudio-alsa`.
 
 
 ### Usage
@@ -28,7 +38,7 @@ In your `~/.config/awesome/rc.lua`:
 
 ```lua
 -- load the widget code
-local volume_control = require("volume-control")
+local volume_control = require("deficient.volume-control")
 
 
 -- define your volume control, using default settings:
@@ -149,25 +159,6 @@ local volume_widget = volume_control {
 
 However, in this case, I recommend to use
 [pasystray](https://github.com/christophgysin/pasystray) instead.
-
-### Requirements
-
-* [awesome 4.0](http://awesome.naquadah.org/).
-* pavucontrol (optional)
-* acpid (optional)
-
-You will also need `amixer` and `alsactl`, most likely your distro has a
-package called `alsa-utils` that contains them.
-
-If you are using `pipewire`, you have to configure it to manage clients
-using the userspace component of ALSA. For example on Arch Linux, this can
-be done by installing the package `pipewire-alsa`. For Debian, you can
-follow the instructions provided in the
-[Debian Wiki](https://wiki.debian.org/PipeWire#For_ALSA).
-
-Similarly, if you are using `pulseaudio`, you need to configure it to manage
-clients using the userspace component of ALSA. For Arch Linux, that means
-installing the package `pulseaudio-alsa`.
 
 
 ### Alternatives

@@ -1,12 +1,10 @@
 ## awesome-brightness
 
-### Description
-
 Brightness indicator/control widget for [awesome wm](https://awesomewm.org/)
 based on ``xbacklight`` or ``brightnessctl``.
 
 
-### Dependencies:
+### Dependencies
 
 The module requires either `xbacklight` or `brightnessctl` to work.
 Thus, on archlinux, you'll need to install at least one of the following
@@ -20,23 +18,13 @@ I've experienced `xorg-xbacklight` not work on certain laptops. So, if you
 find that the widget is not working, try a different backend.
 
 
-### Installation
-
-Drop the script into your awesome config folder. Suggestion:
-
-```bash
-cd ~/.config/awesome
-git clone https://github.com/deficient/brightness.git
-```
-
-
 ### Usage
 
 In your `~/.config/awesome/rc.lua`:
 
 ```lua
 -- Import and instanciate:
-local brightness_ctrl = require("brightness") {
+local brightness_ctrl = require("deficient.brightness") {
     -- pass options here
 }
 
@@ -60,7 +48,7 @@ The flag `brightness_ctrl.is_valid` indicates successful initialization.
 Full example:
 
 ```lua
-local brightness_ctrl = require("brightness") {
+local brightness_ctrl = require("deficient.brightness") {
   backend = nil,
   step = 5,
   timeout = 3,
@@ -99,8 +87,3 @@ sudo pacman -S xf86-video-intel
 ```
 
 You may need to restart afterwards.
-
-
-### Requirements
-
-* [awesome 4.0](http://awesome.naquadah.org/)

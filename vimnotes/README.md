@@ -1,11 +1,15 @@
 ## awesome.vim-notes
 
-### Description
-
 A lightweight notes widget for awesome WM.
 
 The widget consists of an icon that shows a menu allowing to open any file in
 a specified directory.
+
+
+### Dependencies
+
+* [lua-filesystem](http://keplerproject.github.com/luafilesystem/)
+* [vim-notes](http://peterodding.com/code/vim/notes/)
 
 
 ### Usage
@@ -14,7 +18,7 @@ Drop the file into your `~/config/awesome` folder and load the plugin in
 your `~/.config/awesome/rc.lua`:
 
 ```lua
-vimnotes = require('vimnotes')
+vimnotes = require("deficient.vimnotes")
 
 -- Create a widget:
 vnwidget = vimnotes({
@@ -29,9 +33,3 @@ mywibox[s].widgets = {
   ...
 }
 ```
-
-
-### Requirements
-
-* [lua-filesystem](http://keplerproject.github.com/luafilesystem/)
-* [vim-notes](http://peterodding.com/code/vim/notes/)

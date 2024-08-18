@@ -1,21 +1,9 @@
 ## awesome.leds-widget
 
-### Description
-
 Single generic "led" indicator widget for awesome window manager.
 
 Uses `leds_widget.is_enabled()` for status information, this must be provided
 for each specific usecase.
-
-
-### Installation
-
-Drop the script into your awesome config folder. Suggestion:
-
-```bash
-cd ~/.config/awesome
-git clone https://github.com/deficient/leds-widget.git
-```
 
 
 ### Usage
@@ -24,7 +12,7 @@ In your `rc.lua`:
 
 ```lua
 -- load the widget code
-local leds_widget = require("leds-widget")
+local leds_widget = require("deficient.leds-widget")
 
 
 -- define your led widget
@@ -76,9 +64,3 @@ The text which shows up on the toolbar and when you highlight the widget, respec
 
 The function `leds_widget:update()` will use the function `leds_widget.is_enabled()`
 to get led state.
-
-
-### Requirements
-
-* [awesome 4.0](http://awesome.naquadah.org/) and possibly also 3.5
-

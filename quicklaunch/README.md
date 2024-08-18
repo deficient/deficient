@@ -5,22 +5,12 @@ Simple quicklaunchbar widget.
 ![Screenshot](/screenshot.png?raw=true "Screenshot")
 
 
-### Installation
-
-Simply drop the script into your awesome config folder, e.g.:
-
-```bash
-cd ~/.config/awesome
-git clone https://github.com/deficient/quicklaunch.git
-```
-
-
 ### Usage
 
 In your `~/.config/awesome/rc.lua`:
 
 ```lua
-local quicklaunch = require("quicklaunch")
+local quicklaunch = require("deficient.quicklaunch")
 
 
 -- create widget
@@ -67,8 +57,3 @@ can be either
 (If the function returns values, awful will understand them as
 `visible, action = f()` and keep the menu alive if `visible` is truthy and
 execute `action`)
-
-
-### Requirements
-
-* [awesome 4.0](http://awesome.naquadah.org/). May work on 3.5 with minor changes.
