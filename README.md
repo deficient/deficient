@@ -24,7 +24,6 @@ For usage instructions, refer to the individual widgets:
 - [leds-widget](./leds-widget)
 - [quicklaunch](./quicklaunch)
 - [screensaver](./screensaver)
-- [vimnotes](./vimnotes)
 - [volume-control](./volume-control)
 
 
