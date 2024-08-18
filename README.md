@@ -14,7 +14,17 @@ git clone https://github.com/deficient/deficient
 
 # Usage
 
-For usage instructions, refer to the individual widgets:
+The widgets can usually be instanciated similar to this:
+
+```lua
+local deficient = require("deficient")
+
+local calendar = deficient.calendar {}
+local quicklaunch = deficient.quicklaunch {}
+-- etc
+```
+
+For more detailed usage instructions, refer to the individual widgets:
 
 - [battery-widget](./battery-widget)
 - [brightness](./brightness)
