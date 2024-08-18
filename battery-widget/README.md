@@ -23,17 +23,21 @@ In order to add a battery widget to your wibox, you have to import the module
 and then instanciate a widget with the desired options like this:
 
 ```lua
--- Import module:
-local battery_widget = require("deficient.battery-widget")
+local deficient = require("deficient")
 
--- Instanciate and add widget to the wibox:
+
+-- instanciate widget
+local battery_widget = deficient.battery_widget {
+    -- pass options here
+}
+
+
+-- add to wibox
 s.mywibox:setup {
     ...,
     { -- Right widgets
         ...,
-        battery_widget {
-            -- pass options here
-        },
+        battery_widget,
     },
 }
 ```

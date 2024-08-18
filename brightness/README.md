@@ -23,12 +23,16 @@ find that the widget is not working, try a different backend.
 In your `~/.config/awesome/rc.lua`:
 
 ```lua
--- Import and instanciate:
-local brightness_ctrl = require("deficient.brightness") {
+local deficient = require("deficient")
+
+
+-- instanciate widget
+local brightness_ctrl = deficient.brightness {
     -- pass options here
 }
 
--- Add widget to the wibox:
+
+-- add widget to the wibox:
 s.mywibox:setup {
     ...,
     { -- Right widgets

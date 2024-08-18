@@ -37,12 +37,11 @@ installing the package `pulseaudio-alsa`.
 In your `~/.config/awesome/rc.lua`:
 
 ```lua
--- load the widget code
-local volume_control = require("deficient.volume-control")
+local deficient = require("deficient")
 
 
--- define your volume control, using default settings:
-volumecfg = volume_control({})
+-- instanciate volume control, using default settings:
+volumecfg = deficient.volume_control({})
 
 
 -- add the widget to your wibox
@@ -67,7 +66,7 @@ One common pitfall is using the wrong sound device. On systems with pulseaudio,
 it's usually best to create the control with:
 
 ```lua
-volumecfg = volume_control {device="pulse"}
+volumecfg = deficient.volume_control {device="pulse"}
 ```
 
 On some systems, clicking the widget will mute audio, however clicking it again
@@ -88,7 +87,7 @@ You can specify any subset of the following arguments to the constructor.
 The default values are as follows:
 
 ```lua
-volumecfg = volume_control({
+volumecfg = deficient.volume_control({
   device  = nil,            -- e.g.: "default", "pulse"
   cardid  = nil,            -- e.g.: 0, 1, ...
   channel = "Master",
@@ -125,7 +124,7 @@ following kinds:
 E.g.:
 
 ```lua
-volumecfg = volume_control({
+volumecfg = deficient.volume_control({
   lclick="toggle",                        -- name of member function
   mclick=TERMINAL .. " -x alsamixer",     -- command to execute
   rclick=function(self) self:mute() end,  -- callable, equivalent to "mute"
@@ -147,7 +146,7 @@ local function get_image(volume, state)
     end
 end
 
-local volume_widget = volume_control {
+local volume_widget = deficient.volume_control {
     tooltip = true,
     widget = wibox.widget.imagebox(),
     callback = function(self, setting)

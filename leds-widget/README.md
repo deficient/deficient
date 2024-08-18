@@ -11,13 +11,13 @@ for each specific usecase.
 In your `rc.lua`:
 
 ```lua
--- load the widget code
-local leds_widget = require("deficient.leds-widget")
+local deficient = require("deficient")
 
-
--- define your led widget
-capslock = leds_widget({ led_name = "Capslock",
-                         is_enabled = function() ... end })
+-- instanciate led widget:
+capslock = deficient.leds_widget({
+    led_name = "Capslock",
+    is_enabled = function() ... end,
+})
 
 
 -- add the widget to your wibox

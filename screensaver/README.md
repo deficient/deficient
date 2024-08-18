@@ -20,12 +20,11 @@ sudo pacman -S xorg-xset
 In your `~/.config/awesome/rc.lua`:
 
 ```lua
--- load the module
-local screensaver = require("deficient.screensaver")
+local deficient = require("deficient")
 
 
--- instanciate the control
-screensaver_ctrl = screensaver({})
+-- instanciate widget:
+screensaver_ctrl = deficient.screensaver({})
 
 
 -- add the widget to your wibox

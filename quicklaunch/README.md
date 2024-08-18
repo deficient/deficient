@@ -10,11 +10,11 @@ Simple quicklaunchbar widget.
 In your `~/.config/awesome/rc.lua`:
 
 ```lua
-local quicklaunch = require("deficient.quicklaunch")
+local deficient = require("deficient")
 
 
--- create widget
-local launchbar = quicklaunch:bar {
+-- instanciate widget:
+local launchbar = deficient.quicklaunch:bar {
     { "Mumble",       "mumble.svg",       "mumble",         },
     { "Pidgin",       "pidgin.png",       "pidgin",         },
     { "Konversation", "konversation.png", "konversation",   },

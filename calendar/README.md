@@ -13,18 +13,20 @@ by Bernd Zeimetz and Marc Dequènes.
 In your `rc.lua`:
 
 ```lua
--- load the widget code
-local calendar = require("deficient.calendar")
+local deficient = require("deficient")
 
--- attach it as popup to your text clock widget:
-calendar({}):attach(mytextclock)
+
+-- instanciate widget
+local calendar_widget = deficient.calendar({})
+
+-- attach it as popup to your text clock widget
+calendar_widget:attach(mytextclock)
 ```
 
 You can also add some options to customize the widget's display. For instance:
 
 ```
-local calendar = require("deficient.calendar")
-calendar_widget = calendar({
+calendar_widget = deficient.calendar({
   fdow = 7,                  -- Set Sunday as first day of the week (default is
                              -- 1 = Monday)
   position = "bottom_right", -- Useful if you prefer your wibox at the bottomn

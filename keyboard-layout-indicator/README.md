@@ -8,11 +8,10 @@ Keyboard layout indicator+switcher widget for awesome window manager.
 In your `rc.lua`:
 
 ```lua
--- load the widget code
-local layout_indicator = require("deficient.keyboard-layout-indicator")
+local deficient = require("deficient")
 
--- define your layouts
-kbdcfg = layout_indicator({
+-- Instanciate widget and define layouts:
+kbdcfg = deficient.keyboard_layout_indicator({
     layouts = {
         {name="dv",  layout="de",  variant="dvorak"},
         {name="de",  layout="de",  variant=nil},

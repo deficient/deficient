@@ -8,8 +8,10 @@ Simple cpu usage indicator widget for [awesome wm](https://awesomewm.org/).
 In your `~/.config/awesome/rc.lua`:
 
 ```lua
--- Import and instanciate:
-local cpuinfo = require("deficient.cpuinfo") ()
+local deficient = require("deficient")
+
+-- Instanciate widget:
+local cpuinfo = deficient.cpuinfo()
 
 -- Add widget to the wibox:
 s.mywibox:setup {
