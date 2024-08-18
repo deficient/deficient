@@ -1,5 +1,5 @@
-A lightweight widget collection for [awesome wm](https://awesomewm.org/),
-compatible with awesome 4.x.
+A collection of lightweight widgets for [awesome wm](https://awesomewm.org/),
+compatible with awesome 4.x that were previously hosted as separate repositories.
 
 
 # Installation
