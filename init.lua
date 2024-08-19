@@ -5,4 +5,4 @@ local function load_submodule(table, key)
   return submodule
 end
 
-return setmetatable({bar = true}, {__index = load_submodule });
+return setmetatable({}, {__index = load_submodule});
