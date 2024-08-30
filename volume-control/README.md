@@ -2,7 +2,7 @@
 
 Volume indicator+control widget for awesome window manager.
 
-![Screenshot](/screenshot.png?raw=true "Screenshot")
+![Screenshot](/volume-control/screenshot.png?raw=true "Screenshot")
 
 
 ### Dependencies

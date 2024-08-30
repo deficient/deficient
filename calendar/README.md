@@ -2,7 +2,7 @@
 
 Small calendar popup for awesome window manager.
 
-![Screenshot](/screenshot.png?raw=true "Screenshot")
+![Screenshot](/calendar/screenshot.png?raw=true "Screenshot")
 
 This is a polished up and improved module based on the `calendar2.lua` module
 by Bernd Zeimetz and Marc Dequènes.

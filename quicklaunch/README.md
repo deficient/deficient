@@ -2,7 +2,7 @@
 
 Simple quicklaunchbar widget.
 
-![Screenshot](/screenshot.png?raw=true "Screenshot")
+![Screenshot](/quicklaunch/screenshot.png?raw=true "Screenshot")
 
 
 ### Usage
