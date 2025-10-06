@@ -242,7 +242,10 @@ backends.xset_dpms = {
   end,
 
   parse_result = function(self, sections)
-    local dpms = sections['dpms (energy star)']
+    local dpms = (
+      sections['dpms (energy star)'] or
+      sections['dpms (display power management signaling)']
+    )
     local standby = tonumber(dpms:match('Standby:%s+(%d+)'))
     local suspend = tonumber(dpms:match('Suspend:%s+(%d+)'))
     local off     = tonumber(dpms:match(    'Off:%s+(%d+)'))
