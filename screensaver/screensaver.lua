@@ -248,6 +248,14 @@ backends.xset_dpms = {
       sections['dpms (energy star)'] or
       sections['dpms (display power management signaling)']
     )
+    if dpms == nil then
+      for key, section in pairs(sections) do
+        if key:match('^dpms') then
+          dpms = section
+          break
+        end
+      end
+    end
     local standby = tonumber(dpms:match('Standby:%s+(%d+)'))
     local suspend = tonumber(dpms:match('Suspend:%s+(%d+)'))
     local off     = tonumber(dpms:match(    'Off:%s+(%d+)'))
