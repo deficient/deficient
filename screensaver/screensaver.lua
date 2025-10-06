@@ -199,7 +199,9 @@ end
 
 local function xset_get(self, callback)
   exec({'xset', 'q'}, function(output)
-    callback(self:parse_result(parse_sections(output)))
+    local sections = parse_sections(output)
+    local seconds = self:parse_result(sections)
+    callback(seconds)
   end)
 end
 
