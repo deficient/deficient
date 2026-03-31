@@ -54,6 +54,7 @@ quicklaunch.icon_path = {
     "/usr/share/icons/hicolor/64x64/apps",
     "/usr/share/icons/hicolor/64x64/mimetypes",
     "/usr/share/icons/gnome/48x48/apps",
+    "/usr/share/icons/AdwaitaLegacy/48x48/apps",
     "/usr/share/icons/hicolor/scalable/apps",
 }
 
